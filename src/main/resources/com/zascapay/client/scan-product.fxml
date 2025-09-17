@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane prefHeight="623.0" prefWidth="876.0" style="-fx-background-color:#D9D9D9;" stylesheets="@css/components.css"
+            xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.zascapay.client.controller.ScanProductController">
+
+
+    <top>
+        <HBox alignment="TOP_RIGHT" spacing="10" style="-fx-padding: 10;">
+            <Button fx:id="helpButton" onAction="#onHelpAction" prefHeight="64" prefWidth="64" styleClass="img-btn"/>
+        </HBox>
+    </top>
+    <center>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <center>
+                <!-- Camera Pane -->
+                <StackPane fx:id="cameraPane" style="-fx-background-color: #EE4C01" styleClass="camera-box"
+                           BorderPane.alignment="CENTER">
+                    <ImageView fx:id="cameraView" fitHeight="444.0" fitWidth="567.0" preserveRatio="true"/>
+                    <Canvas fx:id="overlayCanvas"/>
+                </StackPane>
+            </center>
+            <bottom>
+                <HBox alignment="CENTER" prefHeight="90.0" prefWidth="567.0" spacing="10" BorderPane.alignment="CENTER">
+                    <Button fx:id="reScanButton" onAction="#onReScanAction" prefHeight="64" prefWidth="64"
+                            styleClass="img-btn"/>
+                    <Region prefHeight="121.0" prefWidth="419.0" HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="scanButton" onAction="#onScanAction" prefHeight="64" prefWidth="64"
+                            styleClass="img-btn"/>
+                </HBox>
+            </bottom>
+
+        </BorderPane>
+    </center>
+</BorderPane>

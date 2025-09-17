@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12"
+            styleClass="base-background"
+            stylesheets="@css/components.css, @css/base.css"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zascapay.client.controller.SuccessController">
+    <center>
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <ImageView fx:id="successImageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                       preserveRatio="true"/>
+            <Label text="Thanh toán thành công" textAlignment="CENTER" styleClass="success-label">
+                <VBox.margin>
+                    <Insets top="30.0"/>
+                </VBox.margin>
+            </Label>
+        </VBox>
+    </center>
+</BorderPane>

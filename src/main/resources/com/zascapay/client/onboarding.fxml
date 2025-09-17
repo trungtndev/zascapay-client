@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.zascapay.client.controller.OnboardingController"
+           styleClass="onboarding-root"
+           style="-fx-background-color: #0E1035">
+
+    <VBox alignment="CENTER" spacing="30">
+        <!-- Logo -->
+        <ImageView fx:id="logoView"
+                   fitWidth="400" fitHeight="200"
+                   preserveRatio="true"/>
+
+        <!-- Nút bắt đầu -->
+        <Button fx:id="startButton"
+                text="Bắt đầu"
+                prefWidth="242" prefHeight="60"
+                style="-fx-background-color: white; -fx-text-fill: black; -fx-font-size: 14px;"
+                onAction="#handleStartButton"/>
+    </VBox>
+
+</StackPane>

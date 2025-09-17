@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane prefHeight="400.0" prefWidth="600.0" styleClass="base-background"
+            stylesheets="@css/components.css, @css/base.css" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zascapay.client.controller.InvoiceDisplayController">
+    <top>
+        <HBox alignment="TOP_RIGHT" style="-fx-padding: 20;">
+            <Button fx:id="helpButton"/>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <Label styleClass="title-label" text="Nhập email"/>
+            <TextField fx:id="emailField" prefHeight="71.0" prefWidth="472.0" promptText="example@gmail.com"
+                       styleClass="email-input">
+                <VBox.margin>
+                    <Insets top="16.0"/>
+                </VBox.margin>
+            </TextField>
+            <BorderPane.margin>
+                <Insets left="64.0" right="64.0"/>
+            </BorderPane.margin>
+        </VBox>
+    </center>
+    <bottom>
+        <BorderPane prefHeight="100.0" prefWidth="811.0" BorderPane.alignment="CENTER">
+            <right>
+                <Button fx:id="continueButton" mnemonicParsing="false" onAction="#onContinueAction" prefHeight="64.0"
+                        prefWidth="128.0" styleClass="continue-btn" text="Tiếp tục" BorderPane.alignment="CENTER"/>
+            </right>
+            <left>
+                <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackAction" prefHeight="64.0"
+                        prefWidth="128.0" styleClass="back-btn" text="Quay lại" BorderPane.alignment="CENTER"/>
+            </left>
+            <padding>
+                <Insets left="64.0" right="64.0"/>
+            </padding>
+        </BorderPane>
+    </bottom>
+</BorderPane>

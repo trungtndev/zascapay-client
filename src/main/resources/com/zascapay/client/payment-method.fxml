@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane prefHeight="500.0" prefWidth="800.0" styleClass="base-background"
+            stylesheets="@css/components.css, @css/base.css" xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zascapay.client.controller.PaymentMethodController">
+    <top>
+        <BorderPane prefHeight="82.0" prefWidth="800.0">
+
+            <center>
+                <Label text="Chọn phương thức thanh toán"
+                       styleClass="header-label"
+                       maxWidth="Infinity"
+                       graphicTextGap="0"
+                       alignment="CENTER"
+                       BorderPane.alignment="CENTER"/>
+            </center>
+            <right>
+                <Button fx:id="helpButton"
+                        onAction="#onHelpAction"
+                        prefHeight="64"
+                        prefWidth="64"
+                        styleClass="img-btn"
+                        BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets right="16.0"/>
+                    </BorderPane.margin>
+                </Button>
+            </right>
+        </BorderPane>
+
+    </top>
+    <bottom>
+        <BorderPane prefHeight="100.0" prefWidth="811.0" BorderPane.alignment="CENTER">
+            <right>
+                <Button fx:id="continueButton" mnemonicParsing="false" onAction="#onContinueAction" prefHeight="64.0"
+                        prefWidth="128.0" styleClass="continue-btn" text="Tiếp tục" BorderPane.alignment="CENTER"/>
+            </right>
+            <left>
+                <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackAction" prefHeight="64.0"
+                        prefWidth="128.0" styleClass="back-btn" text="Quay lại" BorderPane.alignment="CENTER"/>
+            </left>
+            <padding>
+                <Insets left="64.0" right="64.0"/>
+            </padding>
+        </BorderPane>
+    </bottom>
+    <center>
+        <VBox prefHeight="325.0" prefWidth="758.0" spacing="20" styleClass="payment-container">
+            <BorderPane.margin>
+                <Insets left="64.0" right="64.0"/>
+            </BorderPane.margin>
+            <fx:define>
+                <ToggleGroup fx:id="paymentGroup"/>
+            </fx:define>
+            <RadioButton fx:id="cashOption" styleClass="payment-option" text="Tiền mặt"
+                         toggleGroup="$paymentGroup"/>
+            <RadioButton fx:id="bankOption" styleClass="payment-option" text="Chuyển khoản"
+                         toggleGroup="$paymentGroup"/>
+            <RadioButton fx:id="walletOption" styleClass="payment-option" text="Ví điện tử"
+                         toggleGroup="$paymentGroup"/>
+            <RadioButton fx:id="cardOption" styleClass="payment-option" text="Thẻ ngân hàng"
+                         toggleGroup="$paymentGroup"/>
+
+        </VBox>
+    </center>
+</BorderPane>

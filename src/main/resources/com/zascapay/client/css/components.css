@@ -1,0 +1,293 @@
+.img-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+
+    -fx-padding: 0;
+    -fx-opacity: 1.0;
+}
+
+.continue-btn {
+    -fx-background-color: #040136; /* solid bg */
+    -fx-text-fill: white; /* white text */
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-padding: 12 28; /* vertical horizontal */
+    -fx-background-radius: 10; /* rounded corners */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 8, 0, 0, 3);
+    -fx-border-color: transparent;
+}
+
+.back-btn {
+
+    -fx-background-color: #EE4C01; /* solid bg */
+    -fx-text-fill: white; /* white text */
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-padding: 12 28; /* vertical horizontal */
+    -fx-background-radius: 10; /* rounded corners */
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 8, 0, 0, 3);
+    -fx-border-color: transparent;
+}
+
+
+/* cart overview */
+.scroll-bar:vertical,
+.scroll-bar:horizontal {
+    -fx-opacity: 0; /* ẩn đi */
+    -fx-background-color: transparent;
+    -fx-pref-width: 0; /* cố gắng thu nhỏ */
+    -fx-pref-height: 0;
+}
+
+.scroll-bar .thumb,
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+
+.list-cell,
+.list-cell:focused,
+.list-cell:selected,
+.list-cell:filled:selected:focused {
+    -fx-background-color: #D9D9D9;
+    -fx-border-color: transparent;
+    -fx-text-fill: inherit;
+}
+
+.list-view {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+}
+
+.cart-item {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-min-height: 96px;
+    -fx-pref-height: 96px;
+    -fx-padding: 12;
+    -fx-spacing: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0, 0, 2);
+}
+
+
+.item-name {
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #111;
+}
+
+.item-price {
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #222;
+}
+
+
+/* total box */
+.total-box {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 6, 0, 0, 2);
+}
+
+.total-summary {
+    -fx-background-color: white;
+    -fx-padding: 14;
+    -fx-background-radius: 0 0 10 10;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+
+.total-header {
+    -fx-background-color: #f04b10;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 12;
+    -fx-alignment: center;
+    -fx-background-radius: 10 10 0 0;
+}
+
+
+.header-label {
+    -fx-font-size: 40px; /* chỉnh kích thước chữ */
+    -fx-font-weight: bold; /* in đậm */
+    -fx-text-fill: black; /* màu chữ */
+    -fx-alignment: center; /* căn giữa */
+    /*-fx-background-color: #d9d9d9; !* nền xám giống hình *!*/
+    /*-fx-padding: 10px; !* khoảng cách trong *!*/
+    /*-fx-border-color: transparent; !* nếu muốn bỏ border *!*/
+}
+
+
+.payment-container {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-border-color: black;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-alignment: TOP_LEFT; /* căn giữa nội dung trong VBox */
+}
+
+.payment-option {
+    -fx-font-size: 30px; /* tăng size chữ */
+    /*-fx-font-weight: thin;     !* chữ đậm hơn một chút *!*/
+    /*-fx-text-fill: #333;       !* màu chữ *!*/
+}
+
+.payment-option:selected {
+    -fx-text-fill: #e53935; /* đỏ khi chọn */
+}
+
+/* cash  */
+.confirm-card {
+    -fx-background-color: white;
+    -fx-padding: 0;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+}
+
+.confirm-header {
+    -fx-background-color: #1a0033; /* tím đậm */
+    -fx-text-fill: white;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 12;
+    -fx-background-radius: 10 10 0 0; /* bo góc trên */
+}
+
+.confirm-body {
+    -fx-font-size: 32px;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+
+    -fx-alignment: center;
+    -fx-padding: 40 0 40 0;
+}
+
+/* success-label */
+.success-label {
+    -fx-text-alignment: center; /* Căn giữa nội dung */
+    -fx-alignment: center; /* Căn giữa label */
+    -fx-font-weight: bold;
+    -fx-font-size: 32px;
+
+    -fx-wrap-text: true; /* Cho phép xuống dòng */
+    -fx-max-width: 400px; /* Giới hạn chiều rộng để tự động xuống dòng */
+}
+
+/* Email */
+.title-label {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+.email-input {
+    -fx-background-color: #e0e0e0;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-font-size: 25px;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+}
+
+/* Invoice */
+.invoice-box {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-width: 1;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+.invoice-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+}
+
+.invoice-items {
+    -fx-padding: 5;
+}
+
+.invoice-item {
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+    -fx-pref-width: 320; /* Cột tên sản phẩm */
+}
+
+.invoice-qty {
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+    -fx-pref-width: 40; /* Cột số lượng */
+    -fx-alignment: center-right;
+}
+
+.invoice-price {
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+    -fx-pref-width: 80; /* Cột giá */
+    -fx-alignment: center-right;
+}
+
+.total-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.invoice-option-box {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    /*-fx-border-color: #ccc;*/
+    -fx-border-width: 1;
+}
+
+.section-title {
+    -fx-background-color: #1a0033; /* tím đậm */
+    -fx-text-fill: white;
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    /*-fx-alignment: 15;*/
+    -fx-background-radius: 10 10 0 0; /* bo góc trên */
+}
+
+.radio-box {
+    -fx-padding: 20;
+    -fx-background-color: #ffffff;
+    /*-fx-background-radius: 15;*/
+    /*-fx-border-color: #cccccc;*/
+    /*-fx-border-radius: 15;*/
+    -fx-background-radius: 0 0 10 10; /* bo góc trên */
+
+    -fx-border-width: 1;
+    -fx-pref-width: 220;
+}
+
+.radio-box .radio-button {
+    -fx-font-size: 14px;
+}
+
+/* thank-label */
+.thank-label {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+}

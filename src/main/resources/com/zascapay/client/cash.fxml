@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane prefHeight="600.0" prefWidth="900.0" styleClass="base-background" stylesheets="@css/components.css, @css/base.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zascapay.client.controller.CashController">
+    <top>
+        <BorderPane prefHeight="82.0" prefWidth="800.0">
+
+
+            <right>
+                <Button fx:id="helpButton" onAction="#onHelpAction" prefHeight="64" prefWidth="64" styleClass="img-btn" BorderPane.alignment="CENTER">
+                    <BorderPane.margin>
+                        <Insets right="16.0" />
+                    </BorderPane.margin>
+                </Button>
+            </right>
+        </BorderPane>
+    </top>
+    <bottom>
+        <BorderPane prefHeight="100.0" prefWidth="811.0" BorderPane.alignment="CENTER">
+            <left>
+                <Button fx:id="backButton" mnemonicParsing="false" onAction="#onBackAction" prefHeight="64.0" prefWidth="128.0" styleClass="back-btn" text="Quay lại" BorderPane.alignment="CENTER" />
+            </left>
+            <padding>
+                <Insets left="64.0" right="64.0" />
+            </padding>
+        </BorderPane>
+    </bottom>
+    <center>
+        <!-- Card -->
+        <BorderPane prefHeight="418.0" prefWidth="557.0" styleClass="confirm-card">
+            <!-- Header -->
+            <top>
+                <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="Infinity" prefHeight="92.0" prefWidth="770.0" styleClass="confirm-header" text="Thanh toán bằng tiền mặt" />
+            </top>
+
+            <!-- Body -->
+            <center>
+                <Label alignment="CENTER" styleClass="confirm-body" text="Đang đợi nhân viên xác nhận" />
+            </center>
+            <BorderPane.margin>
+                <Insets left="64.0" right="64.0" />
+            </BorderPane.margin>
+        </BorderPane>
+    </center>
+
+</BorderPane>

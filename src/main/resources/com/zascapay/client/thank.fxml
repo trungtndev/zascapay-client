@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            styleClass="base-background"
+            stylesheets="@css/components.css, @css/base.css"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zascapay.client.controller.ThankController">
+    <center>
+        <VBox alignment="CENTER">
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Cảm ơn Quý Khách!" textAlignment="CENTER"
+                   styleClass="thank-label">
+            </Label>
+        </VBox>
+    </center>
+</BorderPane>

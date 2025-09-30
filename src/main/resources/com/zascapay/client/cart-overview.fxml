@@ -50,7 +50,7 @@
     </bottom>
     <center>
         <VBox prefHeight="191.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-            <ListView prefHeight="0.0" prefWidth="1280.0"/>
+<!--            <ListView prefHeight="0.0" prefWidth="1280.0"/>-->
             <VBox alignment="CENTER_RIGHT" prefWidth="665.0" spacing="10">
                 <!-- Items list -->
 

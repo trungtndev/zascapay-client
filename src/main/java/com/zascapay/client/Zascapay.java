@@ -11,7 +11,7 @@ public class Zascapay extends Application {
     public void start(Stage stage) throws Exception {
         SceneManager.setStage(stage);
         SceneManager.setDimensions(1280, 768);
-        SceneManager.switchTo("scan-product.fxml");
+        SceneManager.switchTo("onboarding.fxml");
 
     }
 }

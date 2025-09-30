@@ -1,9 +1,9 @@
 package com.zascapay.client.component.data;
 
 public class Item {
-    private String name;
-    private String price;
-    private String imageUrl;
+    private final String name;
+    private final String price;
+    private final String imageUrl;
 
     public Item(String name, String price, String imageUrl) {
         this.name = name;

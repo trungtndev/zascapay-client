@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox alignment="CENTER" prefHeight="64.0" prefWidth="195.0" styleClass="l-cart-item" stylesheets="@../css/components.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zascapay.client.component.CartItemCellController">
+
+    <ImageView fx:id="itemImage" fitHeight="64" fitWidth="64" preserveRatio="true" />
+    <Label fx:id="itemName" styleClass="l-item-name" />
+    <Region HBox.hgrow="ALWAYS" />
+    <Label fx:id="itemPrice" styleClass="l-item-price" />
+</HBox>

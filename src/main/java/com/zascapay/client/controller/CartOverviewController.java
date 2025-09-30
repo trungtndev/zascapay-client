@@ -1,6 +1,7 @@
 package com.zascapay.client.controller;
 
 import com.zascapay.client.component.CartItemCell;
+import com.zascapay.client.component.CartItemCell_L;
 import com.zascapay.client.component.data.Item;
 import com.zascapay.client.util.SceneManager;
 import javafx.fxml.FXML;
@@ -35,18 +36,17 @@ public class CartOverviewController implements Initializable {
         iv.setSmooth(true);
         helpButton.setGraphic(iv);
         // TODO: Load items from cart
-        itemList.setCellFactory(listView -> new CartItemCell());
-
+        itemList.setCellFactory(listView -> new CartItemCell_L());
         itemList.getItems().addAll(
-                new Item("Item 1dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/base.png").toString()),
-                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/base.png").toString()),
-                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/base.png").toString()),
-                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/base.png").toString()),
-                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/base.png").toString()),
-                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/base.png").toString()),
-                new Item("Item 1", "35.000", getClass().getResource("/images/base.png").toString()),
-                new Item("Item 1", "35.000", getClass().getResource("/images/base.png").toString()),
-                new Item("Item 2", "45.000", getClass().getResource("/images/base.png").toString())
+                new Item("Item 1dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
+                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
+                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
+                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
+                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
+                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
+                new Item("Item 1", "35.000", getClass().getResource("/images/empty.png").toString()),
+                new Item("Item 1", "35.000", getClass().getResource("/images/empty.png").toString()),
+                new Item("Item 2", "45.000", getClass().getResource("/images/empty.png").toString())
         );
     }
 

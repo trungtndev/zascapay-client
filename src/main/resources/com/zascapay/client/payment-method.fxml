@@ -48,7 +48,7 @@
         </BorderPane>
     </bottom>
     <center>
-        <VBox prefHeight="325.0" prefWidth="758.0" spacing="20" styleClass="payment-container">
+        <VBox spacing="20" styleClass="payment-container">
             <BorderPane.margin>
                 <Insets left="64.0" right="64.0"/>
             </BorderPane.margin>

@@ -1,22 +1,31 @@
 package com.zascapay.client.controller;
 
+import com.zascapay.client.component.CartItemCell;
+import com.zascapay.client.component.data.Item;
+import com.zascapay.client.service.ScanService;
+import com.zascapay.client.service.dto.response.Detection;
+import com.zascapay.client.service.dto.response.ScanResponse;
 import com.zascapay.client.util.SceneManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.util.Base64;
 import java.util.ResourceBundle;
 
 public class ScanProductController implements Initializable {
-    @FXML
-    public Canvas overlayCanvas;
     @FXML
     private Button helpButton;
     @FXML
@@ -25,16 +34,23 @@ public class ScanProductController implements Initializable {
     private Button reScanButton;
 
     @FXML
+    public Canvas overlayCanvas;
+    public Label totalLabel;
+    public Label summaryItems;
+
+    @FXML
     private Button continueButton;
 
-//    @FXML
-//    private ListView<Item> itemList;
+    @FXML
+    private ListView<Item> itemListShow;
 
     @FXML
     private Pane cameraPane;
 
     @FXML
     private ImageView cameraView;
+
+    private ScanService scanService = new ScanService();
 
 
     @Override
@@ -54,7 +70,7 @@ public class ScanProductController implements Initializable {
         iv2.setPreserveRatio(true);
         iv2.setSmooth(true);
         scanButton.setGraphic(iv2);
-//
+
         URL reScanUrl = getClass().getResource("/images/re-scan.png");
         ImageView iv3 = new ImageView(reScanUrl.toString());
         iv3.setFitWidth(64);
@@ -63,30 +79,66 @@ public class ScanProductController implements Initializable {
         iv3.setSmooth(true);
         reScanButton.setGraphic(iv3);
 
-    }
+        itemListShow.setCellFactory(listView -> new CartItemCell());
 
-    @FXML
-    void onHelpAction() throws IOException {
-        System.out.println("Help button clicked in ScanProductController");
 
+        cameraView.fitWidthProperty().bind(cameraPane.widthProperty());
+        cameraView.fitHeightProperty().bind(cameraPane.heightProperty());
+
+        overlayCanvas.widthProperty().bind(cameraPane.widthProperty());
+        overlayCanvas.heightProperty().bind(cameraPane.heightProperty());
     }
 
     @FXML
     void onScanAction() throws IOException {
-        Image testImage = new Image(getClass().getResource("/images/headset.png").toExternalForm());
+        Image testImage = new Image(getClass().getResource("/images/demo.jpg").toExternalForm());
         cameraView.setImage(testImage);
-        System.out.println("Scan button clicked in ScanProductController");
+        scanButton.setDisable(true);
+
+        File file = new File(getClass().getResource("/images/demo.jpg").getPath());
+
+        new Thread(() -> {
+            try {
+//                ScanService service = new ScanService();
+                ScanResponse res = scanService.scan(file);
+
+                if (res != null) {
+                    byte[] decodedBytes = Base64.getDecoder().decode(res.getImage());
+                    InputStream is = new ByteArrayInputStream(decodedBytes);
+                    Image annotatedImage = new Image(is);
+
+                    Platform.runLater(() -> {
+                        cameraView.setImage(annotatedImage);
+                        for (Detection det : res.getObjects()) {
+                            itemListShow.getItems().add(
+                                new Item(
+                                        det.getClassName(),
+                                        String.valueOf(det.getPrice()),
+                                        getClass().getResource("/images/empty.png").toString())
+                            );
+                        }
+                        scanButton.setDisable(false); // bật lại khi xong
+                    });
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                Platform.runLater(() -> scanButton.setDisable(false));
+            }
+        }).start();
+
     }
 
     @FXML
     void onReScanAction() throws IOException {
         cameraView.setImage(null);
-        System.out.println("Re-Scan button clicked in ScanProductController");
+    }
+
+    @FXML
+    void onHelpAction() throws IOException {
     }
 
     @FXML
     void onContinueAction() throws IOException {
-        System.out.println("Continue button clicked in ScanProductController");
         SceneManager.switchTo("cart-overview.fxml");
     }
 

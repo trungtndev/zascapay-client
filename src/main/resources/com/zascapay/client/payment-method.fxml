@@ -55,13 +55,13 @@
             <fx:define>
                 <ToggleGroup fx:id="paymentGroup"/>
             </fx:define>
-            <RadioButton fx:id="cashOption" styleClass="payment-option" text="Tiền mặt"
+            <RadioButton id="cashOption" fx:id="cashOption" styleClass="payment-option" text="Tiền mặt"
                          toggleGroup="$paymentGroup"/>
-            <RadioButton fx:id="bankOption" styleClass="payment-option" text="Chuyển khoản"
+            <RadioButton id="bankOption" fx:id="bankOption" styleClass="payment-option" text="Chuyển khoản"
                          toggleGroup="$paymentGroup"/>
-            <RadioButton fx:id="walletOption" styleClass="payment-option" text="Ví điện tử"
+            <RadioButton id="walletOption" fx:id="walletOption" styleClass="payment-option" text="Ví điện tử"
                          toggleGroup="$paymentGroup"/>
-            <RadioButton fx:id="cardOption" styleClass="payment-option" text="Thẻ ngân hàng"
+            <RadioButton id="cardOption" fx:id="cardOption" styleClass="payment-option" text="Thẻ ngân hàng"
                          toggleGroup="$paymentGroup"/>
 
         </VBox>

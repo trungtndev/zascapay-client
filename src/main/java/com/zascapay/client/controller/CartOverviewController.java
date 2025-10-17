@@ -1,12 +1,15 @@
 package com.zascapay.client.controller;
 
-import com.zascapay.client.component.CartItemCell;
 import com.zascapay.client.component.CartItemCell_L;
 import com.zascapay.client.component.data.Item;
+import com.zascapay.client.service.TemporaryCart;
 import com.zascapay.client.util.SceneManager;
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 
@@ -26,6 +29,12 @@ public class CartOverviewController implements Initializable {
     @FXML
     private ListView<Item> itemList;
 
+    @FXML
+    private Label summaryItems;
+
+    @FXML
+    private Label totalLabel;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         URL headSetUrl = getClass().getResource("/images/headset.png");
@@ -35,24 +44,34 @@ public class CartOverviewController implements Initializable {
         iv.setPreserveRatio(true);
         iv.setSmooth(true);
         helpButton.setGraphic(iv);
-        // TODO: Load items from cart
+        // Bind ListView to the shared temporary cart so items added during scanning remain here
         itemList.setCellFactory(listView -> new CartItemCell_L());
-        itemList.getItems().addAll(
-                new Item("Item 1dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
-                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
-                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
-                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
-                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
-                new Item("Item 11dassssssssssssssssssssssssssssssssssss", "35.000", getClass().getResource("/images/empty.png").toString()),
-                new Item("Item 1", "35.000", getClass().getResource("/images/empty.png").toString()),
-                new Item("Item 1", "35.000", getClass().getResource("/images/empty.png").toString()),
-                new Item("Item 2", "45.000", getClass().getResource("/images/empty.png").toString())
-        );
+        itemList.setItems(TemporaryCart.getInstance().getItems());
+
+        // Update summary labels when cart changes and toggle continue button state
+        TemporaryCart.getInstance().getItems().addListener((ListChangeListener<Item>) change -> {
+            updateCartSummary();
+            continueButton.setDisable(TemporaryCart.getInstance().getItemCount() == 0);
+            // force refresh to ensure cell controls are updated
+            Platform.runLater(() -> itemList.refresh());
+        });
+        updateCartSummary();
+        // set initial continue button state
+        continueButton.setDisable(TemporaryCart.getInstance().getItemCount() == 0);
+    }
+
+    private void updateCartSummary() {
+        Platform.runLater(() -> {
+            int count = TemporaryCart.getInstance().getItemCount();
+            double total = TemporaryCart.getInstance().getTotal();
+            summaryItems.setText(count + " items");
+            totalLabel.setText(String.format("%.2f", total));
+        });
     }
 
     @FXML
     void onContinueAction() throws IOException {
-        System.out.println("Continue to Payment");
+        // Navigate to payment method selection. The order will be placed in the cash flow controller.
         SceneManager.switchTo("payment-method.fxml");
     }
 

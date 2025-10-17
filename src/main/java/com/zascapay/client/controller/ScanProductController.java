@@ -3,10 +3,12 @@ package com.zascapay.client.controller;
 import com.zascapay.client.component.CartItemCell;
 import com.zascapay.client.component.data.Item;
 import com.zascapay.client.service.ScanService;
-import com.zascapay.client.service.dto.response.Detection;
+import com.zascapay.client.service.TemporaryCart;
+import com.zascapay.client.service.dto.response.ProductResponse;
 import com.zascapay.client.service.dto.response.ScanResponse;
 import com.zascapay.client.util.SceneManager;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -79,14 +81,30 @@ public class ScanProductController implements Initializable {
         iv3.setSmooth(true);
         reScanButton.setGraphic(iv3);
 
+        // Bind the ListView to the application-scoped temporary cart so items persist across scenes
         itemListShow.setCellFactory(listView -> new CartItemCell());
+        itemListShow.setItems(TemporaryCart.getInstance().getItems());
 
+        // Update summary labels when cart changes
+        TemporaryCart.getInstance().getItems().addListener((ListChangeListener<Item>) change -> updateCartSummary());
+        updateCartSummary();
 
         cameraView.fitWidthProperty().bind(cameraPane.widthProperty());
         cameraView.fitHeightProperty().bind(cameraPane.heightProperty());
 
         overlayCanvas.widthProperty().bind(cameraPane.widthProperty());
         overlayCanvas.heightProperty().bind(cameraPane.heightProperty());
+    }
+
+    private void updateCartSummary() {
+        // Ensure UI update runs on FX thread
+        Platform.runLater(() -> {
+            int count = TemporaryCart.getInstance().getItemCount();
+            double total = TemporaryCart.getInstance().getTotal();
+//            summaryItems.setText(count + " items");
+            // Format total with 2 decimals; adapt if you use a different display format
+            totalLabel.setText(String.format("%.2f", total));
+        });
     }
 
     @FXML
@@ -109,12 +127,20 @@ public class ScanProductController implements Initializable {
 
                     Platform.runLater(() -> {
                         cameraView.setImage(annotatedImage);
-                        for (Detection det : res.getObjects()) {
-                            itemListShow.getItems().add(
+                        for (ProductResponse det : res.getProducts()) {
+                            // Add to the application-scoped TemporaryCart so items remain until checkout
+                            String productName = det.getProductName();
+                            if (productName == null) productName = "(no name)";
+                            String priceStr = det.getPrice(); // keep null if API returned null
+                            System.out.println("ScanProductController: adding item -> name='" + productName + "', price='" + priceStr + "'");
+                            TemporaryCart.getInstance().addItem(
                                 new Item(
-                                        det.getClassName(),
-                                        String.valueOf(det.getPrice()),
-                                        getClass().getResource("/images/empty.png").toString())
+                                        det.getProductId(),
+                                        productName,
+                                        priceStr,
+                                        getClass().getResource("/images/empty.png").toString(),
+                                        1
+                                )
                             );
                         }
                         scanButton.setDisable(false); // bật lại khi xong

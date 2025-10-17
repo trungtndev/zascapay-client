@@ -9,6 +9,6 @@ import retrofit2.http.Part;
 
 public interface ScanApi {
     @Multipart
-    @POST("/scan")
+    @POST("/api/products/scan/")
     Call<ScanResponse> scanImage(@Part MultipartBody.Part file);
 }

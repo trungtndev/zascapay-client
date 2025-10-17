@@ -33,19 +33,20 @@
 
             <!-- Danh sách sản phẩm -->
             <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
-                <VBox spacing="10" styleClass="invoice-items">
-                    <HBox>
-                        <Label styleClass="invoice-item" text="Bánh quyquy quyquyquyquy"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <Label styleClass="invoice-qty" text="1"/>
-                        <Label styleClass="invoice-price" text="20.000"/>
-                    </HBox>
-                    <HBox>
-                        <Label styleClass="invoice-item" text="Bánh quy"/>
-                        <Region HBox.hgrow="ALWAYS"/>
-                        <Label styleClass="invoice-qty" text="1"/>
-                        <Label styleClass="invoice-price" text="20.000"/>
-                    </HBox>
+                <!-- give this VBox an fx:id so controller can inject rows -->
+                <VBox fx:id="itemsBox" spacing="10" styleClass="invoice-items">
+<!--                    <HBox>-->
+<!--                        <Label styleClass="invoice-item" text="Bánh quyquy quyquyquyquy"/>-->
+<!--                        <Region HBox.hgrow="ALWAYS"/>-->
+<!--                        <Label styleClass="invoice-qty" text="1"/>-->
+<!--                        <Label styleClass="invoice-price" text="20.000"/>-->
+<!--                    </HBox>-->
+<!--                    <HBox>-->
+<!--                        <Label styleClass="invoice-item" text="Bánh quy"/>-->
+<!--                        <Region HBox.hgrow="ALWAYS"/>-->
+<!--                        <Label styleClass="invoice-qty" text="1"/>-->
+<!--                        <Label styleClass="invoice-price" text="20.000"/>-->
+<!--                    </HBox>-->
 
                     <!-- Có thể add nhiều sản phẩm ở đây -->
                 </VBox>
@@ -55,7 +56,8 @@
             <HBox>
                 <Label styleClass="total-label" text="Tổng cộng"/>
                 <Region prefHeight="18.0" prefWidth="123.0" HBox.hgrow="ALWAYS"/>
-                <Label text="80.000"/>
+                <!-- make total label accessible -->
+                <Label fx:id="totalLabel" text="80.000"/>
             </HBox>
             <Separator/>
 
@@ -64,19 +66,19 @@
                 <HBox>
                     <Label text="Phương thức thanh toán:"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Label text="VNPAY"/>
+                    <Label fx:id="paymentMethodLabel" text="VNPAY"/>
                 </HBox>
 
                 <HBox>
                     <Label text="Mã đơn hàng:"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Label text="589878"/>
+                    <Label fx:id="orderIdLabel" text="589878"/>
                 </HBox>
 
                 <HBox>
                     <Label text="Ngày:"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Label text="24/04/2024 9:17"/>
+                    <Label fx:id="dateLabel" text="24/04/2024 9:17"/>
                 </HBox>
             </VBox>
             <BorderPane.margin>

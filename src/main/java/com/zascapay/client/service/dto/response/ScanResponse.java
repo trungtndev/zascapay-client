@@ -1,16 +1,25 @@
 package com.zascapay.client.service.dto.response;
+
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class ScanResponse {
-    private List<Detection> objects;
+    @SerializedName("products")
+    private List<ProductResponse> products;
+
+    @SerializedName("image")
     private String image; // base64 encoded image
 
-    public List<Detection> getObjects() {
-        return objects;
+    public ScanResponse() {
     }
 
-    public void setObjects(List<Detection> objects) {
-        this.objects = objects;
+    public List<ProductResponse> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductResponse> products) {
+        this.products = products;
     }
 
     public String getImage() {
@@ -19,5 +28,13 @@ public class ScanResponse {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "ScanResponse{" +
+                "products=" + products +
+                ", image='" + image + '\'' +
+                '}';
     }
 }

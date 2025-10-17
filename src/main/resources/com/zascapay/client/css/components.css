@@ -16,8 +16,16 @@
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 8, 0, 0, 3);
     -fx-border-color: transparent;
-}
 
+    /* larger explicit widths to increase button width */
+    /*-fx-min-width: 220px;*/
+    -fx-pref-width: 180px;
+    /*-fx-max-width: 320px;*/
+
+    /*-fx-min-height: 220px;*/
+    -fx-pref-height: 64px;
+    /*-fx-max-height: 320px;*/
+}
 .back-btn {
 
     -fx-background-color: #EE4C01; /* solid bg */
@@ -29,6 +37,15 @@
     -fx-cursor: hand;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.35), 8, 0, 0, 3);
     -fx-border-color: transparent;
+
+    /* larger explicit widths to increase button width */
+    -fx-min-width: 220px;
+    -fx-pref-width: 180px;
+    -fx-max-width: 320px;
+
+    /*-fx-min-height: 220px;*/
+    -fx-pref-height: 64px;
+    /*-fx-max-height: 320px;*/
 }
 
 /* Scan product */
@@ -94,6 +111,13 @@
     -fx-font-size: 12px;
     -fx-font-weight: 700;
     -fx-text-fill: #222;
+}
+
+.s-item-qty, .l-item-qty {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #333;
+    -fx-alignment: center-right;
 }
 
 .l-cart-item {

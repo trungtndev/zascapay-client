@@ -9,7 +9,7 @@
       fx:controller="com.zascapay.client.component.CartItemCellController">
 
     <ImageView fx:id="itemImage" fitHeight="32" fitWidth="32" preserveRatio="true"/>
-    <Label fx:id="itemName" styleClass="s-item-name"/>
-    <Region HBox.hgrow="ALWAYS"/>
-    <Label fx:id="itemPrice" styleClass="s-item-price"/>
+    <Label fx:id="itemName" styleClass="s-item-name" HBox.hgrow="ALWAYS"/>
+    <Label fx:id="itemQuantity" styleClass="s-item-qty" prefWidth="50" alignment="CENTER_RIGHT" />
+    <Label fx:id="itemPrice" styleClass="s-item-price" prefWidth="80" alignment="CENTER_RIGHT"/>
 </HBox>

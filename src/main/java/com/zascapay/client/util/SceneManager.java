@@ -26,6 +26,9 @@ public class SceneManager {
 
     public static void switchTo(String fxml) throws IOException {
         URL pathFxml = SceneManager.class.getResource("/com/zascapay/client/" + fxml);
+        if (pathFxml == null) {
+            throw new IOException("FXML resource not found: /com/zascapay/client/" + fxml);
+        }
         FXMLLoader fxmlLoader = new FXMLLoader(pathFxml);
         Scene scene = new Scene(fxmlLoader.load(), width, height);
         stage.setScene(scene);
@@ -35,6 +38,9 @@ public class SceneManager {
 
     public static void setRoot(String fxml) throws IOException {
         URL pathFxml = SceneManager.class.getResource("/com/zascapay/client/" + fxml);
+        if (pathFxml == null) {
+            throw new IOException("FXML resource not found: /com/zascapay/client/" + fxml);
+        }
 
         FXMLLoader loader = new FXMLLoader(pathFxml);
         Parent root = loader.load();

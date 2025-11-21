@@ -7,6 +7,7 @@ import com.zascapay.client.service.api.OrderApi;
 import com.zascapay.client.service.dto.request.OrderRequest;
 import com.zascapay.client.service.dto.response.OrderResponse;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.ResponseBody;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -27,11 +28,22 @@ public class OrderService {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(chain -> {
+                    Request orig = chain.request();
+                    Request.Builder rb = orig.newBuilder();
+                    // attach token if provided
+                    String token = ApiConfig.TOKEN_API;
+                    if (token != null && !token.isEmpty() && !"REPLACE_WITH_YOUR_TOKEN".equals(token)) {
+                        rb.header("Authorization", "Token " + token);
+                    }
+                    rb.header("Accept", "application/json");
+                    return chain.proceed(rb.build());
+                })
                 .addInterceptor(logging)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:8888")
+                .baseUrl(ApiConfig.BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -58,8 +70,13 @@ public class OrderService {
             try {
                 String raw = null;
                 try {
-                    try (ResponseBody rb = resp.raw().body()) {
-                        if (rb != null) raw = rb.string();
+                    // ensure the underlying okhttp3.Response is closed properly to avoid resource leaks
+                    okhttp3.Response rawResp = resp.raw();
+                    if (rawResp != null) {
+                        try (okhttp3.Response rr = rawResp) {
+                            ResponseBody rb = rr.body();
+                            if (rb != null) raw = rb.string();
+                        }
                     }
                 } catch (Exception e) {
                     LOGGER.log(Level.FINE, "Unable to read raw okhttp response body", e);

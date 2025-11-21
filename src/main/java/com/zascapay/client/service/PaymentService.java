@@ -4,6 +4,7 @@ import com.zascapay.client.service.api.PaymentApi;
 import com.zascapay.client.service.dto.request.PaymentRequest;
 import com.zascapay.client.service.dto.response.PaymentResponse;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -24,11 +25,21 @@ public class PaymentService {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(chain -> {
+                    Request orig = chain.request();
+                    Request.Builder rb = orig.newBuilder();
+                    String token = ApiConfig.TOKEN_API;
+                    if (token != null && !token.isEmpty() && !"REPLACE_WITH_YOUR_TOKEN".equals(token)) {
+                        rb.header("Authorization", "Token " + token);
+                    }
+                    rb.header("Accept", "application/json");
+                    return chain.proceed(rb.build());
+                })
                 .addInterceptor(logging)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:8888")
+                .baseUrl(ApiConfig.BASE_URL)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

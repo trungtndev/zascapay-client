@@ -8,6 +8,7 @@ import com.zascapay.client.service.dto.response.PaymentResponse;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.Request;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -23,12 +24,25 @@ public class PaymentClient {
 
     public PaymentClient(String baseUrl) {
         this.gson = new GsonBuilder().create();
+
+        String resolvedBase = (baseUrl == null || baseUrl.isEmpty()) ? ApiConfig.BASE_URL : baseUrl;
+
         OkHttpClient client = new OkHttpClient.Builder()
                 .callTimeout(30, TimeUnit.SECONDS)
+                .addInterceptor(chain -> {
+                    Request orig = chain.request();
+                    Request.Builder rb = orig.newBuilder();
+                    String token = ApiConfig.TOKEN_API;
+                    if (token != null && !token.isEmpty() && !"REPLACE_WITH_YOUR_TOKEN".equals(token)) {
+                        rb.header("Authorization", "Bearer " + token);
+                    }
+                    rb.header("Accept", "application/json");
+                    return chain.proceed(rb.build());
+                })
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(baseUrl)
+                .baseUrl(resolvedBase)
                 .client(client)
                 .build();
 

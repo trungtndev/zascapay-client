@@ -64,7 +64,7 @@ public class CartOverviewController implements Initializable {
         Platform.runLater(() -> {
             int count = TemporaryCart.getInstance().getItemCount();
             double total = TemporaryCart.getInstance().getTotal();
-            summaryItems.setText(count + " items");
+            summaryItems.setText("Total:");
             totalLabel.setText(String.format("%.2f", total));
         });
     }

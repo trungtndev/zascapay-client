@@ -18,7 +18,12 @@ public class ApiConfig {
     static {
         String token = System.getenv("TOKEN_API");
         if (token == null || token.isEmpty()) {
-            token = System.getProperty("token_api", "86be047626e9b76c19142117cfd7f0daa16b5338");
+            token = System.getProperty(
+                    "token_api",
+//                    "357dad5ab76bca006ecfac80e1536b5ef6fdd1da" // shop a
+//                    "25bb999703e24af1ded4872f1227abe8aaad088f" // shop b
+                    "f2c89a1b5ce46cd965049d4e44066d60bb355309" // test user
+            );
         }
         TOKEN_API = token;
 

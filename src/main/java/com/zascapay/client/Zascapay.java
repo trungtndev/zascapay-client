@@ -12,7 +12,7 @@ public class Zascapay extends Application {
         SceneManager.setStage(stage);
         SceneManager.setDimensions(1280, 768);
 //        onboarding cash
-        SceneManager.switchTo("scan-product.fxml");
+        SceneManager.switchTo("onboarding.fxml");
 
     }
 }

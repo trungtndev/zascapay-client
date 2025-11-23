@@ -18,6 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -106,57 +107,125 @@ public class ScanProductController implements Initializable {
             totalLabel.setText(String.format("%.2f", total));
         });
     }
-
     @FXML
     void onScanAction() throws IOException {
-        Image testImage = new Image(getClass().getResource("/images/demo.jpg").toExternalForm());
-        cameraView.setImage(testImage);
+        // Open a file chooser so user can pick an image from local machine
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose image to scan");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif")
+        );
+
+        File file = fileChooser.showOpenDialog(scanButton.getScene().getWindow());
+        if (file == null) {
+            // user cancelled
+            return;
+        }
+
+        // Disable scan button to prevent multiple parallel scans
         scanButton.setDisable(true);
 
-        File file = new File(getClass().getResource("/images/demo.jpg").getPath());
+        // Show the chosen image immediately
+        Image chosenImage = new Image(file.toURI().toString());
+        cameraView.setImage(chosenImage);
 
+        // Perform the scan on a background thread
         new Thread(() -> {
             try {
-//                ScanService service = new ScanService();
                 ScanResponse res = scanService.scan(file);
 
                 if (res != null) {
-                    byte[] decodedBytes = Base64.getDecoder().decode(res.getImage());
-                    InputStream is = new ByteArrayInputStream(decodedBytes);
-                    Image annotatedImage = new Image(is);
+                    // If backend returns annotated image as Base64, show it
+                    if (res.getImage() != null) {
+                        try {
+                            byte[] decodedBytes = Base64.getDecoder().decode(res.getImage());
+                            InputStream is = new ByteArrayInputStream(decodedBytes);
+                            Image annotatedImage = new Image(is);
+                            Platform.runLater(() -> cameraView.setImage(annotatedImage));
+                        } catch (IllegalArgumentException ignored) {
+                            // If image is not valid base64 just ignore and keep original
+                        }
+                    }
 
-                    Platform.runLater(() -> {
-                        cameraView.setImage(annotatedImage);
+                    // Add detected products to TemporaryCart (application scoped)
+                    if (res.getProducts() != null) {
                         for (ProductResponse det : res.getProducts()) {
-                            // Add to the application-scoped TemporaryCart so items remain until checkout
                             String productName = det.getProductName();
                             if (productName == null) productName = "(no name)";
-                            String priceStr = det.getPrice(); // keep null if API returned null
-                            System.out.println("ScanProductController: adding item -> name='" + productName + "', price='" + priceStr + "'");
-                            TemporaryCart.getInstance().addItem(
-                                new Item(
-                                        det.getProductId(),
-                                        productName,
-                                        priceStr,
-                                        getClass().getResource("/images/empty.png").toString(),
-                                        1
-                                )
+                            String priceStr = det.getPrice();
+
+                            Item item = new Item(
+                                    det.getProductId(),
+                                    productName,
+                                    priceStr,
+                                    getClass().getResource("/images/empty.png").toString(),
+                                    1
                             );
+                            TemporaryCart.getInstance().addItem(item);
                         }
-                        scanButton.setDisable(false); // bật lại khi xong
-                    });
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
                 Platform.runLater(() -> scanButton.setDisable(false));
             }
         }).start();
-
     }
+//    @FXML
+//    void onScanAction() throws IOException {
+//        Image testImage = new Image(getClass().getResource("/images/demo.jpg").toExternalForm());
+//        cameraView.setImage(testImage);
+//        scanButton.setDisable(true);
+//
+//        File file = new File(getClass().getResource("/images/demo.jpg").getPath());
+//
+//        new Thread(() -> {
+//            try {
+//                ScanResponse res = scanService.scan(file);
+//
+//                if (res != null) {
+//                    byte[] decodedBytes = Base64.getDecoder().decode(res.getImage());
+//                    InputStream is = new ByteArrayInputStream(decodedBytes);
+//                    Image annotatedImage = new Image(is);
+//
+//                    Platform.runLater(() -> {
+//                        cameraView.setImage(annotatedImage);
+//                        for (ProductResponse det : res.getProducts()) {
+//                            // Add to the application-scoped TemporaryCart so items remain until checkout
+//                            String productName = det.getProductName();
+//                            if (productName == null) productName = "(no name)";
+//                            String priceStr = det.getPrice(); // keep null if API returned null
+//                            System.out.println("ScanProductController: adding item -> name='" + productName + "', price='" + priceStr + "'");
+//                            TemporaryCart.getInstance().addItem(
+//                                new Item(
+//                                        det.getProductId(),
+//                                        productName,
+//                                        priceStr,
+//                                        getClass().getResource("/images/empty.png").toString(),
+//                                        1
+//                                )
+//                            );
+//                        }
+//                        scanButton.setDisable(false); // bật lại khi xong
+//                    });
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                Platform.runLater(() -> scanButton.setDisable(false));
+//            }
+//        }).start();
+//
+//    }
 
     @FXML
     void onReScanAction() throws IOException {
+        // Clear current camera view
         cameraView.setImage(null);
+        // Clear all items in the temporary cart
+        TemporaryCart.getInstance().clear();
+        // Update summary labels immediately
+        updateCartSummary();
     }
 
     @FXML

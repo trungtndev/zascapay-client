@@ -36,7 +36,7 @@
             </padding>
          <right>
                 <!-- Camera Pane -->
-                <StackPane fx:id="cameraPane" prefHeight="513.0" prefWidth="936.0" styleClass="camera-box" BorderPane.alignment="CENTER">
+                <StackPane fx:id="cameraPane" prefHeight="513.0" prefWidth="882.0" styleClass="camera-box" BorderPane.alignment="CENTER">
                     <ImageView fx:id="cameraView" preserveRatio="true" styleClass="camera-view" />
                     <Canvas fx:id="overlayCanvas" styleClass="canvas" />
                 </StackPane>
@@ -45,7 +45,7 @@
         </BorderPane>
     </left>
     <right>
-        <BorderPane>
+        <BorderPane prefHeight="673.0" prefWidth="518.0">
             <center>
                 <VBox prefHeight="553.0" prefWidth="381.0" styleClass="small-cart" BorderPane.alignment="CENTER">
                     <VBox alignment="CENTER_RIGHT" prefHeight="615.0" prefWidth="381.0" spacing="10">
